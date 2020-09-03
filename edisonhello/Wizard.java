@@ -1,16 +1,24 @@
 // vim: et:ts=2:sw=2:sts=2
 
+import java.util.function.*;
+import java.util.ArrayList;
+
 public class Wizard extends Person {
-  public Person() {
-    super(90, 700, 5, 20, 60);
+  public Wizard(BiFunction<Integer, Integer, Integer> _Input,
+                Consumer<String> _Output) {
+    super(90, 700, 5, 20, 60, _Input, _Output);
   }
 
-  public AttackResult Attack(int attack_type = 0) {
+  public AttackResult Attack() {
+    return NormalAttack();
+  }
+
+  public AttackResult Attack(int attack_type) {
     switch (attack_type) {
-      case 0: 
-        return NormalAttack();
       case 1: 
         return Thunder();
+      default: 
+        return NormalAttack();
     }
   }
 

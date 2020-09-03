@@ -1,14 +1,20 @@
 // vim: et:ts=2:sw=2:sts=2
 
+import java.util.function.*;
+import java.util.ArrayList;
+
 public class Player extends Person {
-  public Person() {
-    super(500, 500, 70, 40, 10);
+  public Player(BiFunction<Integer, Integer, Integer> _Input,
+                Consumer<String> _Output) {
+    super(500, 500, 70, 40, 10, _Input, _Output);
+  }
+
+  public AttackResult Attack() {
+    return NormalAttack();
   }
 
   public AttackResult Attack(int attack_type) {
     switch (attack_type) {
-      case 0: 
-        return NormalAttack();
       case 1: 
         return WaterBall();
       case 2:
@@ -17,6 +23,8 @@ public class Player extends Person {
         return Enchance();
       case 4:
         return Freeze();
+      default:
+        return NormalAttack();
     }
   }
 
@@ -38,27 +46,27 @@ public class Player extends Person {
     if (MP < 50) 
       return NormalAttack();
     MP -= 50;
-    return AttackResult(1, 50, 1, 0);
+    return new AttackResult(1, 50, 1, 0);
   }
 
   private AttackResult FireBall() {
     if (MP < 50) 
       return NormalAttack();
     MP -= 50;
-    return AttackResult(1, 150, 0, 0);
+    return new AttackResult(1, 150, 0, 0);
   }
 
   private AttackResult Enchance() {
     if (MP < 40) 
       return NormalAttack();
     MP -= 40;
-    return AttackResult(0, 0, 0, 0);
+    return new AttackResult(0, 0, 0, 0);
   }
 
   private AttackResult Freeze() {
     if (MP < 100) 
       return NormalAttack();
     MP -= 100;
-    return AttackResult(0, 0, 0, 3);
+    return new AttackResult(0, 0, 0, 3);
   }
 };
