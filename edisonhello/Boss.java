@@ -37,7 +37,11 @@ public class Boss extends Person {
     int summon_type = random_generator.nextInt(3);
     switch (summon_type) {
       case 0:
-        self_deck.add(new Wizard(Input, Output));
+        return new AttackResult(new Wizard(Input, Output));
+      case 1:
+        return new AttackResult(new Knight(Input, Output));
+      case 2:
+        return new AttackResult(new Soldier(Input, Output));
     }
     return new AttackResult(0, 0, 0, 0);
   }
