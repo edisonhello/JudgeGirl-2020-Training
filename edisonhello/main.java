@@ -2,6 +2,7 @@
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.lang.NumberFormatException;
@@ -37,10 +38,53 @@ public class main {
   }
 
   public static void main(String[] args) throws Throwable {
-    if (!(new Round(main::InputInt, main::RandomInt, main::Output, s -> {}, 
-            Arrays.asList(new Player(main::InputInt, main::Output)), 
-            Arrays.asList(new Soldier(main::RandomInt, s -> {})))).Play()) {
-      Output("You dead!");
+    // if (!Round1()) {
+    //   Output("You dead at round 1!");
+    //   return;
+    // }
+    // if (!Round2()) {
+    //   Output("You dead at round 2!");
+    //   return;
+    // }
+    if (!Round3()) {
+      Output("You dead at round 3!");
+      return;
     }
+  }
+
+  // <<<< public ==== private >>>>
+
+  private static boolean Round1() throws Throwable {
+    List<Person> player_list = Arrays.asList(
+        new Player(main::InputInt, main::Output));
+    List<Person> enemy_list = Arrays.asList(
+        new Soldier(main::RandomInt, s -> {}),
+        new Soldier(main::RandomInt, s -> {}),
+        new Soldier(main::RandomInt, s -> {}),
+        new Soldier(main::RandomInt, s -> {}),
+        new Knight(main::RandomInt, s -> {}));
+    Round round = new Round(main::InputInt, main::RandomInt, main::Output, s -> {}, player_list, enemy_list);
+    return round.Play();
+  }
+
+  private static boolean Round2() throws Throwable {
+    List<Person> player_list = Arrays.asList(
+        new Player(main::InputInt, main::Output));
+    List<Person> enemy_list = Arrays.asList(
+        new Soldier(main::RandomInt, s -> {}),
+        new Soldier(main::RandomInt, s -> {}),
+        new Wizard(main::RandomInt, s -> {}),
+        new Wizard(main::RandomInt, s -> {}));
+    Round round = new Round(main::InputInt, main::RandomInt, main::Output, s -> {}, player_list, enemy_list);
+    return round.Play();
+  }
+
+  private static boolean Round3() throws Throwable {
+    List<Person> player_list = Arrays.asList(
+        new Player(main::InputInt, main::Output));
+    List<Person> enemy_list = Arrays.asList(
+        new Boss(main::RandomInt, s -> {}));
+    Round round = new Round(main::InputInt, main::RandomInt, main::Output, s -> {}, player_list, enemy_list);
+    return round.Play();
   }
 };

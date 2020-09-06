@@ -2,9 +2,15 @@
 
 public class AttackResult {
   public int damage;
-  public int type; // 0 for normal, 1 for magic
+  public int type; // -1 for summon, 0 for normal, 1 for magic
   public int range; // 0 for single, 1 for all
   public int freeze_round;
+  public Person summoned;
+
+  public AttackResult(Person _summoned) {
+    type = -1;
+
+  }
   public AttackResult(int _type, int _damage, int _range, int _freeze_round) {
     type = _type;
     damage = _damage;

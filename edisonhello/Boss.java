@@ -2,19 +2,25 @@
 
 import java.util.function.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Boss extends Person {
+  private static Random random_generator = new Random(7122);
   public Boss(BiFunction<Integer, Integer, Integer> _Input,
               Consumer<String> _Output) {
-    super(90, 700, 5, 20, 60, _Input, _Output);
+    super(1000, 300, 90, 40, 40, _Input, _Output);
   }
 
-  public AttackResult Attack(int attack_type = 0) {
+  public AttackResult Attack() {
+    return NormalAttack();
+  }
+
+  public AttackResult Attack(int attack_type) {
     switch (attack_type) {
-      case 0: 
-        return NormalAttack();
       case 1: 
         return Summon();
+      default:
+        return NormalAttack();
     }
   }
 
@@ -24,10 +30,15 @@ public class Boss extends Person {
     return new AttackResult(0, AP, 0, 0);
   }
 
-  private AttackResult Thunder() {
-    if (MP < 100)
+  private AttackResult Summon() {
+    if (MP < 50)
       return NormalAttack();
-    MP -= 100;
-    return new AttackResult(1, 250, 0, 0);
+    MP -= 50;
+    int summon_type = random_generator.nextInt(3);
+    switch (summon_type) {
+      case 0:
+        self_deck.add(new Wizard(Input, Output));
+    }
+    return new AttackResult(0, 0, 0, 0);
   }
 };
